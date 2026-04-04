@@ -46,7 +46,7 @@ export function useTransactions() {
   });
 
   const updateTransaction = useMutation({
-    mutationFn: async ({ id, ...tx }: { id: string; amount: number; type: string; category_id: string | null; description: string; date: string }) => {
+    mutationFn: async ({ id, ...tx }: { id: string; amount: number; type: string; category_id: string | null; description: string; date: string; receipt_url?: string | null }) => {
       const { error } = await supabase.from("transactions").update(tx).eq("id", id);
       if (error) throw error;
     },
