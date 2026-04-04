@@ -26,23 +26,23 @@ const features = [
   },
   {
     icon: TrendingUp,
-    title: "Savings Tracking",
-    description: "Monitor your net savings over time and stay on top of your financial goals.",
+    title: "Budget Limits",
+    description: "Set monthly spending caps per category and get visual alerts when you're close.",
   },
   {
     icon: FileText,
-    title: "PDF Reports",
-    description: "Export monthly transaction reports as clean, detailed PDF documents.",
+    title: "PDF Reports & Receipts",
+    description: "Export monthly reports as PDFs and attach receipt photos to every transaction.",
   },
   {
     icon: PieChart,
-    title: "Expense Breakdown",
-    description: "See exactly where your money goes with beautiful category breakdowns.",
+    title: "Savings Goals & Recurring",
+    description: "Set savings targets, auto-add recurring bills, and track progress visually.",
   },
   {
     icon: Shield,
-    title: "Secure & Private",
-    description: "Your financial data is encrypted and accessible only to you.",
+    title: "AI Insights",
+    description: "Get AI-powered spending analysis, tips, and personalized recommendations.",
   },
 ];
 
