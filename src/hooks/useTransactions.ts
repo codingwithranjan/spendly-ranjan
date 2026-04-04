@@ -34,7 +34,7 @@ export function useTransactions() {
   });
 
   const addTransaction = useMutation({
-    mutationFn: async (tx: { amount: number; type: string; category_id: string | null; description: string; date: string }) => {
+    mutationFn: async (tx: { amount: number; type: string; category_id: string | null; description: string; date: string; receipt_url?: string | null }) => {
       const { error } = await supabase.from("transactions").insert({ ...tx, user_id: user!.id });
       if (error) throw error;
     },
