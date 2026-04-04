@@ -12,6 +12,7 @@ export type Transaction = {
   description: string | null;
   date: string;
   created_at: string;
+  receipt_url: string | null;
   categories?: { name: string; icon: string } | null;
 };
 
@@ -33,7 +34,7 @@ export function useTransactions() {
   });
 
   const addTransaction = useMutation({
-    mutationFn: async (tx: { amount: number; type: string; category_id: string | null; description: string; date: string }) => {
+    mutationFn: async (tx: { amount: number; type: string; category_id: string | null; description: string; date: string; receipt_url?: string | null }) => {
       const { error } = await supabase.from("transactions").insert({ ...tx, user_id: user!.id });
       if (error) throw error;
     },
@@ -45,7 +46,7 @@ export function useTransactions() {
   });
 
   const updateTransaction = useMutation({
-    mutationFn: async ({ id, ...tx }: { id: string; amount: number; type: string; category_id: string | null; description: string; date: string }) => {
+    mutationFn: async ({ id, ...tx }: { id: string; amount: number; type: string; category_id: string | null; description: string; date: string; receipt_url?: string | null }) => {
       const { error } = await supabase.from("transactions").update(tx).eq("id", id);
       if (error) throw error;
     },

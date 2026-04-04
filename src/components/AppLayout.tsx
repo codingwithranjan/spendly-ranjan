@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { LayoutDashboard, ArrowLeftRight, Tag, FileText, User, LogOut, Wallet } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { LayoutDashboard, ArrowLeftRight, Tag, FileText, User, LogOut, Wallet, RefreshCw, PiggyBank, Target, Sparkles, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -10,12 +11,19 @@ const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/transactions", icon: ArrowLeftRight, label: "Transactions" },
   { to: "/categories", icon: Tag, label: "Categories" },
+  { to: "/budgets", icon: PiggyBank, label: "Budgets" },
+  { to: "/recurring", icon: RefreshCw, label: "Recurring" },
+  { to: "/savings", icon: Target, label: "Goals" },
+  { to: "/insights", icon: Sparkles, label: "Insights" },
   { to: "/export", icon: FileText, label: "Export" },
   { to: "/profile", icon: User, label: "Profile" },
 ];
 
+const mobileNavItems = navItems.slice(0, 5);
+
 export default function AppLayout({ children }: { children: ReactNode }) {
   const { signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const isMobile = useIsMobile();
 
@@ -47,10 +55,16 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <Button variant="ghost" onClick={signOut} className="mt-auto justify-start gap-3 text-muted-foreground">
-            <LogOut className="h-4 w-4" />
-            Sign Out
-          </Button>
+          <div className="mt-auto space-y-1">
+            <Button variant="ghost" onClick={toggleTheme} className="w-full justify-start gap-3 text-muted-foreground">
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </Button>
+            <Button variant="ghost" onClick={signOut} className="w-full justify-start gap-3 text-muted-foreground">
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </Button>
+          </div>
         </aside>
       )}
 
@@ -62,7 +76,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
       {/* Mobile Bottom Nav */}
       {isMobile && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t bg-card">
-          {navItems.map((item) => (
+          {mobileNavItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
