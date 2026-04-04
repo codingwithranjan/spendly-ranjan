@@ -12,6 +12,7 @@ export type Transaction = {
   description: string | null;
   date: string;
   created_at: string;
+  receipt_url: string | null;
   categories?: { name: string; icon: string } | null;
 };
 
