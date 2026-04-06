@@ -2,10 +2,11 @@ import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
-import { LayoutDashboard, ArrowLeftRight, Tag, FileText, User, LogOut, Wallet, RefreshCw, PiggyBank, Target, Sparkles, Moon, Sun } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, Tag, FileText, User, LogOut, Wallet, RefreshCw, PiggyBank, Target, Sparkles, Moon, Sun, MoreHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
 
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
@@ -19,7 +20,8 @@ const navItems = [
   { to: "/profile", icon: User, label: "Profile" },
 ];
 
-const mobileNavItems = navItems.slice(0, 5);
+const mobileMainNav = navItems.slice(0, 4);
+const mobileMoreNav = navItems.slice(4);
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   const { signOut } = useAuth();
