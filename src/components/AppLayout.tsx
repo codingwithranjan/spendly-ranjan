@@ -78,23 +78,86 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 
       {/* Mobile Bottom Nav */}
       {isMobile && (
-        <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t bg-card">
-          {mobileNavItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
+        <>
+          {/* More menu overlay */}
+          {moreOpen && (
+            <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setMoreOpen(false)}>
+              <div
+                className="absolute bottom-16 left-0 right-0 rounded-t-2xl border-t bg-card p-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="text-sm font-semibold">More</span>
+                  <button onClick={() => setMoreOpen(false)}>
+                    <X className="h-5 w-5 text-muted-foreground" />
+                  </button>
+                </div>
+                <div className="grid grid-cols-4 gap-3">
+                  {mobileMoreNav.map((item) => (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setMoreOpen(false)}
+                      className={cn(
+                        "flex flex-col items-center gap-1 rounded-lg py-2 text-xs font-medium transition-colors",
+                        location.pathname === item.to
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      <item.icon className="h-5 w-5" />
+                      {item.label}
+                    </Link>
+                  ))}
+                  <button
+                    onClick={() => { toggleTheme(); setMoreOpen(false); }}
+                    className="flex flex-col items-center gap-1 rounded-lg py-2 text-xs font-medium text-muted-foreground"
+                  >
+                    {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                    {theme === "dark" ? "Light" : "Dark"}
+                  </button>
+                  <button
+                    onClick={() => { signOut(); setMoreOpen(false); }}
+                    className="flex flex-col items-center gap-1 rounded-lg py-2 text-xs font-medium text-muted-foreground"
+                  >
+                    <LogOut className="h-5 w-5" />
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <nav className="fixed bottom-0 left-0 right-0 z-50 flex border-t bg-card">
+            {mobileMainNav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={cn(
+                  "flex flex-1 flex-col items-center gap-1 py-2 text-xs font-medium transition-colors",
+                  location.pathname === item.to
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                {item.label}
+              </Link>
+            ))}
+            <button
+              onClick={() => setMoreOpen(!moreOpen)}
               className={cn(
                 "flex flex-1 flex-col items-center gap-1 py-2 text-xs font-medium transition-colors",
-                location.pathname === item.to
+                mobileMoreNav.some((i) => location.pathname === i.to)
                   ? "text-primary"
                   : "text-muted-foreground"
               )}
             >
-              <item.icon className="h-5 w-5" />
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+              <MoreHorizontal className="h-5 w-5" />
+              More
+            </button>
+          </nav>
+        </>
       )}
     </div>
   );
