@@ -27,6 +27,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   const { signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const [moreOpen, setMoreOpen] = useState(false);
   const isMobile = useIsMobile();
 
   return (
