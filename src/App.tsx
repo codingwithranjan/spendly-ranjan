@@ -19,6 +19,7 @@ import Insights from "@/pages/Insights";
 import Profile from "@/pages/Profile";
 import Export from "@/pages/Export";
 import NotFound from "@/pages/NotFound";
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
             </Routes>
           </AuthProvider>
         </BrowserRouter>
+        <Analytics />
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>
